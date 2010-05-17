@@ -26,7 +26,7 @@ module NestedAssignment
             if row[:_delete].to_s == "1"
               [assoc].detect{|r| r.id == row[:id].to_i}._delete = true if row[:id]
             else
-              record = row[:id].blank? ? assoc.build : [assoc].detect{|r| r.id == row[:id].to_i}
+              record = row[:id].blank? ? self.send("build_#{name}") : [assoc].detect{|r| r.id == row[:id].to_i}
               record.attributes = row.except(:id, :_delete)
             end
           end
